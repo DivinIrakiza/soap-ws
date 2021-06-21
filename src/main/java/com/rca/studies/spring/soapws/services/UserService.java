@@ -17,18 +17,18 @@ public class UserService {
 
         User user1 = new User();
         user1.setId(1);
-        user1.setName("User 1");
+        user1.setName("user1");
         user1.setSalary(12000);
 
         User user2 = new User();
-        user1.setId(2);
-        user1.setName("User 2");
-        user1.setSalary(32000);
+        user2.setId(2);
+        user2.setName("User 2");
+        user2.setSalary(32000);
 
         User user3 = new User();
-        user1.setId(3);
-        user1.setName("User 3");
-        user1.setSalary(16000);
+        user3.setId(3);
+        user3.setName("User 3");
+        user3.setSalary(16000);
 
         users.put(user1.getName(), user1);
         users.put(user2.getName(), user2);
