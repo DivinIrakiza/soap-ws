@@ -8,6 +8,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
+import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
 
@@ -27,9 +28,16 @@ public class WebServiceConfig extends WsConfigurerAdapter  {
 
     @Bean
     public XsdSchema userSchema() {
-        new SimpleXsdSchema(new ClassPathResource("users.xsd"));
+        return new SimpleXsdSchema(new ClassPathResource("users.xsd"));
     }
 
 
-    @
+    @Bean
+    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema xsdSchema) {
+        DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
+        definition.setSchema(xsdSchema);
+        definition.setLocationUri("/ws/soap-api");
+        definition.setPortTypeName("UserService");
+        definition.setTargetNamespace("http://soap.com.rca.studies/spring/soapws");
+    }
 }
