@@ -39,5 +39,7 @@ public class WebServiceConfig extends WsConfigurerAdapter  {
         definition.setLocationUri("/ws/soap-api");
         definition.setPortTypeName("UserService");
         definition.setTargetNamespace("http://soap.com.rca.studies/spring/soapws");
+
+        return definition;
     }
 }
