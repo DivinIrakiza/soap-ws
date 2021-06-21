@@ -1,4 +1,4 @@
-<xs:schema xmlns="http://www.w3.org/2001/XMLSchema"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:tns="http://rca.ac.rw/spring-boot/soap-ws"
            targetNamespace="http://rca.ac.rw/spring-boot/soap-ws"
            elementFormDefault="qualified">
