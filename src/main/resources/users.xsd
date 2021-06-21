@@ -1,0 +1,14 @@
+<xs:schema xmlns="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://rca.ac.rw/spring-boot/soap-ws"
+           targetNamespace="http://rca.ac.rw/spring-boot/soap-ws"
+           elementFormDefault="qualified">
+    <xs:element name="getUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+</xs:schema>
