@@ -15,14 +15,16 @@
     <xs:element name="getUserResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="name" type="xs:string" />
+                <xs:element name="name" type="tns:user" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType>
+    <xs:complexType name="user">
         <xs:sequence>
+            <xs:element name="id" type="xs:int" />
             <xs:element name="name" type="xs:string" />
+            <xs:element name="salary" type="xs:double" />
         </xs:sequence>
     </xs:complexType>
 
