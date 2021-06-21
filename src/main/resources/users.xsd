@@ -1,6 +1,6 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:tns="http://com.rca.studies/spring/soapws"
-           targetNamespace="http://com.rca.studies/spring/soapws"
+           xmlns:tns="http://soap.com.rca.studies/spring/soapws"
+           targetNamespace="http://soap.com.rca.studies/spring/soapws"
            elementFormDefault="qualified">
 
 <!-- Get User Request-->
