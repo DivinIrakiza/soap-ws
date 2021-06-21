@@ -37,7 +37,7 @@ public class WebServiceConfig extends WsConfigurerAdapter  {
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
         definition.setSchema(xsdSchema);
         definition.setLocationUri("/ws/soap-api");
-        definition.setPortTypeName("UserService");
+        definition.setPortTypeName("UserServicePort");
         definition.setTargetNamespace("http://soap.com.rca.studies/spring/soapws");
 
         return definition;
