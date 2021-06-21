@@ -12,34 +12,29 @@ import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
 
-import javax.servlet.ServletRegistration;
-
 @EnableWs
 @Configuration
-public class WebServiceConfig extends WsConfigurerAdapter  {
+public class WebServiceConfig{
     @Bean
     public ServletRegistrationBean messageDispatcherServlet(ApplicationContext context) {
-        MessageDispatcherServlet servlet = new MessageDispatcherServlet();
-        servlet.setApplicationContext(context);
-        servlet.setTransformWsdlLocations(true);
-        return new ServletRegistrationBean(servlet, "/ws/soap-api/*");
+        MessageDispatcherServlet messageDispatcherServlet = new MessageDispatcherServlet();
+        messageDispatcherServlet.setApplicationContext(context);
+        messageDispatcherServlet.setTransformWsdlLocations(true);
+        return new ServletRegistrationBean(messageDispatcherServlet, "/ws/soap-api/*");
     }
 
-
-    @Bean
-    public XsdSchema userSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("users.xsd"));
-    }
-
-
-    @Bean
-    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema xsdSchema) {
+    @Bean(name = "users")
+    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema usersSchema) {
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
-        definition.setSchema(xsdSchema);
-        definition.setLocationUri("/ws/soap-api");
-        definition.setPortTypeName("UserServicePort");
+        definition.setPortTypeName("UsersPort");
         definition.setTargetNamespace("http://soap.com.rca.studies/spring/soapws");
-
+        definition.setLocationUri("/ws/soap-api");
+        definition.setSchema(usersSchema);
         return definition;
+    }
+
+    @Bean
+    public XsdSchema coursesSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("users.xsd"));
     }
 }
