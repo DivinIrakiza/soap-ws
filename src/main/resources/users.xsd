@@ -12,6 +12,7 @@
         </xs:complexType>
     </xs:element>
 
+<!--    Get User Response-->
     <xs:element name="getUserResponse">
         <xs:complexType>
             <xs:sequence>
@@ -20,6 +21,7 @@
         </xs:complexType>
     </xs:element>
 
+<!--    User Object-->
     <xs:complexType name="user">
         <xs:sequence>
             <xs:element name="id" type="xs:int" />
