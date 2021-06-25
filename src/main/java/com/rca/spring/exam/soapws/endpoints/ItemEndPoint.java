@@ -6,7 +6,7 @@ import com.rca.spring.exam.soapws.domains.SupplierModel;
 import com.rca.spring.exam.soapws.enums.EItemStatus;
 import com.rca.spring.exam.soapws.repositories.IItemRepository;
 import com.rca.spring.exam.soapws.repositories.ISupplierRepository;
-import exam.spring.rca.com.divinirakiza.soapws.*;
+import exam.spring.rca.com.divinirakiza.soapws.items.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;

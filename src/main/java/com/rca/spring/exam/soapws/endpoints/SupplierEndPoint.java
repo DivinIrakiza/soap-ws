@@ -3,7 +3,7 @@ package com.rca.spring.exam.soapws.endpoints;
 
 import com.rca.spring.exam.soapws.domains.SupplierModel;
 import com.rca.spring.exam.soapws.repositories.ISupplierRepository;
-import exam.spring.rca.com.divinirakiza.soapws.*;
+import exam.spring.rca.com.divinirakiza.soapws.suppliers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
