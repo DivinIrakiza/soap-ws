@@ -4,6 +4,21 @@
            targetNamespace="http://com.rca.spring.exam/divinirakiza/soapws"
            elementFormDefault="qualified">
 
+
+    <xs:element name="GetAllSuppliersRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllSuppliersResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="courseDetails" type="tns:CourseDetails" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
     <xs:element name="GetSupplierRequest">
         <xs:complexType>
             <xs:sequence>
@@ -12,27 +27,14 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="GetCourseDetailsResponse">
+    <xs:element name="GetSupplierResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="courseDetails" type="tns:CourseDetails" />
+                <xs:element name="supplies" type="tns:Supplier" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="GetAllCourseDetailsRequest">
-        <xs:complexType>
-
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="GetAllCourseDetailsResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="courseDetails" type="tns:CourseDetails" maxOccurs="unbounded" />
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
 
     <xs:element name="CreateCourseDetailsRequest">
         <xs:complexType>
