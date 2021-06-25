@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="suppliers")
-public class Supplier {
+public class SupplierModel {
 
 
     private static final Long serialVersionUID = 1L;
@@ -30,15 +30,15 @@ public class Supplier {
 
 
 
-    public Supplier() {}
+    public SupplierModel() {}
 
-    public Supplier(String names, String email, String mobile) {
+    public SupplierModel(String names, String email, String mobile) {
         this.names = names;
         this.email = email;
         this.mobile = mobile;
     }
 
-    public Supplier(Long id, String names, String email, String mobile) {
+    public SupplierModel(Long id, String names, String email, String mobile) {
         this.id = id;
         this.names = names;
         this.email = email;

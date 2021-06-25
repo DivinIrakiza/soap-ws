@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="items")
-public class Item {
+public class ItemModel {
     private static final Long serialVersionUID = 1L;
 
     @Id
@@ -33,12 +33,12 @@ public class Item {
     @JoinColumn(name="supplier_id", nullable=false)
     @NotNull
     @ManyToOne
-    private Supplier supplier;
+    private SupplierModel supplier;
 
-    public Item() { }
+    public ItemModel() { }
 
 
-    public Item(Long id, String name, String itemCode, Double price, EItemStatus status, Supplier supplier) {
+    public ItemModel(Long id, String name, String itemCode, Double price, EItemStatus status, SupplierModel supplier) {
         this.id = id;
         this.name = name;
         this.itemCode = itemCode;
@@ -47,7 +47,7 @@ public class Item {
         this.supplier = supplier;
     }
 
-    public Item(String name, String itemCode, Double price, EItemStatus status, Supplier supplier) {
+    public ItemModel(String name, String itemCode, Double price, EItemStatus status, SupplierModel supplier) {
         this.name = name;
         this.itemCode = itemCode;
         this.price = price;
@@ -95,11 +95,11 @@ public class Item {
         this.status = status;
     }
 
-    public Supplier getSupplier() {
+    public SupplierModel getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(Supplier supplier) {
+    public void setSupplier(SupplierModel supplier) {
         this.supplier = supplier;
     }
 
