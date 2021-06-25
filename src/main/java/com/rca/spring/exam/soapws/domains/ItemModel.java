@@ -3,6 +3,7 @@ package com.rca.spring.exam.soapws.domains;
 import com.rca.spring.exam.soapws.enums.EItemStatus;
 import com.sun.istack.NotNull;
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name="items")
@@ -24,7 +25,7 @@ public class ItemModel {
 
     @Column(name="price")
     @NotNull
-    private Double price;
+    private BigDecimal price;
 
     @Column(name="status")
     @Enumerated(EnumType.STRING)
@@ -38,7 +39,7 @@ public class ItemModel {
     public ItemModel() { }
 
 
-    public ItemModel(Long id, String name, String itemCode, Double price, EItemStatus status, SupplierModel supplier) {
+    public ItemModel(Long id, String name, String itemCode, BigDecimal price, EItemStatus status, SupplierModel supplier) {
         this.id = id;
         this.name = name;
         this.itemCode = itemCode;
@@ -47,7 +48,7 @@ public class ItemModel {
         this.supplier = supplier;
     }
 
-    public ItemModel(String name, String itemCode, Double price, EItemStatus status, SupplierModel supplier) {
+    public ItemModel(String name, String itemCode, BigDecimal price, EItemStatus status, SupplierModel supplier) {
         this.name = name;
         this.itemCode = itemCode;
         this.price = price;
@@ -79,11 +80,11 @@ public class ItemModel {
         this.itemCode = itemCode;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

@@ -1,9 +1,13 @@
 package com.rca.spring.exam.soapws.endpoints;
 
 
+import com.rca.spring.exam.soapws.domains.ItemModel;
 import com.rca.spring.exam.soapws.domains.SupplierModel;
+import com.rca.spring.exam.soapws.repositories.IItemRepository;
 import com.rca.spring.exam.soapws.repositories.ISupplierRepository;
-import exam.spring.rca.com.divinirakiza.soapws.*;
+import exam.spring.rca.com.divinirakiza.soapws.GetAllItemsRequest;
+import exam.spring.rca.com.divinirakiza.soapws.GetAllItemsResponse;
+import exam.spring.rca.com.divinirakiza.soapws.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -14,25 +18,27 @@ import java.util.List;
 import java.util.Optional;
 
 @Endpoint
-public class SupplierEndPoint {
+public class ItemEndPoint {
     private final ISupplierRepository supplierRepository;
+    private final IItemRepository itemRepository;
 
     @Autowired
-    public SupplierEndPoint(ISupplierRepository supplierRepository) {
+    public ItemEndPoint(IItemRepository itemRepository, ISupplierRepository supplierRepository) {
+        this.itemRepository = itemRepository;
         this.supplierRepository = supplierRepository;
     }
 
-    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "GetAllSuppliersRequest")
+    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "GetAllItemsRequest")
     @ResponsePayload
-    public GetAllSuppliersResponse getAll(@RequestPayload GetAllSuppliersRequest request){
+    public GetAllItemsResponse getAll(@RequestPayload GetAllItemsRequest request){
 
-        List<SupplierModel> suppliers = this.supplierRepository.findAll();
+        List<ItemModel> items = this.itemRepository.findAll();
 
-        GetAllSuppliersResponse response = new GetAllSuppliersResponse();
+        GetAllItemsResponse response = new GetAllItemsResponse();
 
-        for (SupplierModel supplier: suppliers){
-            Supplier _supplier = mapSupplier(supplier);
-            response.getSupplier().add(_supplier);
+        for (ItemModel item: items){
+            Item _item = mapSupplier(item);
+            response.getItem().add(_item);
         }
 
         return response;
@@ -99,9 +105,9 @@ public class SupplierEndPoint {
         return response;
     }
 
-    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "UpdateSupplierRequest")
+    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "DeleteStudentRequest")
     @ResponsePayload
-    public DeleteSupplierResponse delete(@RequestPayload UpdateSupplierRequest request){
+    public DeleteSupplierResponse delete(@RequestPayload DeleteSupplierRequest request){
         Optional<SupplierModel> supplier = this.supplierRepository.findById(request.getId());
 
         if(!supplier.isPresent())
@@ -115,13 +121,15 @@ public class SupplierEndPoint {
 
 
 
-    private Supplier mapSupplier(SupplierModel supplierModel) {
-        Supplier supplier = new Supplier();
-        supplier.setId(supplierModel.getId());
-        supplier.setEmail(supplierModel.getEmail());
-        supplier.setNames(supplierModel.getNames());
-        supplier.setMobile(supplierModel.getMobile());
+    private Item mapItem(ItemModel itemModel) {
+        Item item = new Item();
+        item.setId(itemModel.getId());
+        item.setName(itemModel.getName());
+        item.setItemCode(itemModel.getItemCode());
+        item.setPrice(itemModel.getPrice());
+        item.setSupplier(itemModel.getSupplier());
+        item.setStatus(itemModel.getStatus());
 
-        return supplier;
+        return item;
     }
 }
