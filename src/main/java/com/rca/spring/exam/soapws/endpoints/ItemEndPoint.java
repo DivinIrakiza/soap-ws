@@ -3,11 +3,10 @@ package com.rca.spring.exam.soapws.endpoints;
 
 import com.rca.spring.exam.soapws.domains.ItemModel;
 import com.rca.spring.exam.soapws.domains.SupplierModel;
+import com.rca.spring.exam.soapws.enums.EItemStatus;
 import com.rca.spring.exam.soapws.repositories.IItemRepository;
 import com.rca.spring.exam.soapws.repositories.ISupplierRepository;
-import exam.spring.rca.com.divinirakiza.soapws.GetAllItemsRequest;
-import exam.spring.rca.com.divinirakiza.soapws.GetAllItemsResponse;
-import exam.spring.rca.com.divinirakiza.soapws.Item;
+import exam.spring.rca.com.divinirakiza.soapws.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -37,7 +36,7 @@ public class ItemEndPoint {
         GetAllItemsResponse response = new GetAllItemsResponse();
 
         for (ItemModel item: items){
-            Item _item = mapSupplier(item);
+            Item _item = mapItem(item);
             response.getItem().add(_item);
         }
 
@@ -46,18 +45,18 @@ public class ItemEndPoint {
 
     @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "GetSupplierRequest")
     @ResponsePayload
-    public GetSupplierResponse getById(@RequestPayload GetSupplierRequest request){
-        Optional<SupplierModel> supplier = this.supplierRepository.findById(request.getId());
+    public GetItemResponse getById(@RequestPayload GetItemRequest request){
+        Optional<ItemModel> item = this.itemRepository.findById(request.getId());
 
-        if(!supplier.isPresent())
-            return new GetSupplierResponse();
+        if(!item.isPresent())
+            return new GetItemResponse();
 
 
-        GetSupplierResponse response = new GetSupplierResponse();
+        GetItemResponse response = new GetItemResponse();
 
-        Supplier _supplier = mapSupplier(supplier.get());
+        Item _item = mapItem(item.get());
 
-        response.setSupplier(_supplier);
+        response.setItem(_item);
 
         return response;
     }
@@ -65,15 +64,24 @@ public class ItemEndPoint {
 
     @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "CreateSupplierRequest")
     @ResponsePayload
-    public CreateSupplierResponse create(@RequestPayload CreateSupplierRequest dto) {
-        SupplierDTO supplierDTO = dto.getSupplier();
+    public CreateItemResponse create(@RequestPayload CreateItemRequest dto) {
+        ItemDTO itemDTO = dto.getItem();
 
-        SupplierModel supplier = new SupplierModel();
-        supplier.setEmail(supplierDTO.getEmail());
-        supplier.setNames(supplierDTO.getNames());
-        supplier.setMobile(supplierDTO.getMobile());
+        Optional<SupplierModel> supplier = this.supplierRepository.findById(itemDTO.getSupplier());
 
-        SupplierModel entity = this.supplierRepository.save(supplier);
+        if(!supplier.isPresent())
+            return new CreateItemResponse();
+
+
+        ItemModel item = new ItemModel();
+        item.setName(itemDTO.getName());
+        item.setItemCode(itemDTO.getItemCode());
+        item.setPrice(itemDTO.getPrice());
+        item.setSupplier(supplier.get());
+        item.setStatus(EItemStatus.valueOf(itemDTO.getStatus().toString()));
+
+
+        ItemModel entity = this.itemRepository.save(supplier);
         CreateSupplierResponse response = new CreateSupplierResponse();
 
         response.setSupplier(mapSupplier(entity));
@@ -127,9 +135,30 @@ public class ItemEndPoint {
         item.setName(itemModel.getName());
         item.setItemCode(itemModel.getItemCode());
         item.setPrice(itemModel.getPrice());
-        item.setSupplier(itemModel.getSupplier());
-        item.setStatus(itemModel.getStatus());
+        item.setSupplier(mapSupplier(itemModel.getSupplier()));
+        item.setStatus(EStatus.valueOf(itemModel.getStatus().toString()));
 
         return item;
+    }
+
+
+    private Supplier mapSupplier(SupplierModel supplierModel) {
+        Supplier supplier = new Supplier();
+        supplier.setId(supplierModel.getId());
+        supplier.setEmail(supplierModel.getEmail());
+        supplier.setNames(supplierModel.getNames());
+        supplier.setMobile(supplierModel.getMobile());
+
+        return supplier;
+    }
+
+    private SupplierModel mapSupplierModel(Supplier supplier) {
+        SupplierModel supplierModel = new SupplierModel();
+        supplierModel.setId(supplier.getId());
+        supplierModel.setEmail(supplier.getEmail());
+        supplierModel.setNames(supplier.getNames());
+        supplierModel.setMobile(supplier.getMobile());
+
+        return supplierModel;
     }
 }
