@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://com.rca.spring.exam/divinirakiza/soapws"
+           targetNamespace="http://com.rca.spring.exam/divinirakiza/soapws"
+           elementFormDefault="qualified">
+
+    <xs:element name="GetAllSuppliersRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllSuppliersResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="supplier" type="tns:Supplier" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="GetSupplierRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetSupplierResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="supplier" type="tns:Supplier" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="CreateSupplierRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="supplier" type="tns:SupplierDTO" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CreateSupplierResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="supplier" type="tns:Supplier" />
+                <xs:element name="success" type="xs:boolean" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="UpdateSupplierRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="supplier" type="tns:SupplierDTO" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="UpdateSupplierResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="supplier" type="tns:Supplier" />
+                <xs:element name="success" type="xs:boolean" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="DeleteSupplierRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="DeleteSupplierResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="success" type="xs:boolean" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:complexType name="Supplier">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" />
+            <xs:element name="names" type="xs:string" />
+            <xs:element name="email" type="xs:string" />
+            <xs:element name="mobile" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SupplierDTO">
+        <xs:sequence>
+            <xs:element name="names" type="xs:string" />
+            <xs:element name="email" type="xs:string" />
+            <xs:element name="mobile" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+
+</xs:schema>
