@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:tns="http://com.rca.spring.exam/divinirakiza/soapws"
-           targetNamespace="http://com.rca.spring.exam/divinirakiza/soapws"
+           xmlns:tns="com.rca.spring.exam/divinirakiza/soapws"
+           targetNamespace="com.rca.spring.exam/divinirakiza/soapws"
            elementFormDefault="qualified">
 
     <xs:element name="GetAllSuppliersRequest">
