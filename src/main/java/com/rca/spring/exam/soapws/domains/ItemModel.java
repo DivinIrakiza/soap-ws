@@ -19,7 +19,7 @@ public class ItemModel {
     @NotNull
     private String name;
 
-    @Column(name="price")
+    @Column(name="itemCode")
     @NotNull
     private String itemCode;
 

@@ -99,9 +99,9 @@ public class SupplierEndPoint {
         return response;
     }
 
-    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "UpdateSupplierRequest")
+    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "DeleteSupplierRequest")
     @ResponsePayload
-    public DeleteSupplierResponse delete(@RequestPayload UpdateSupplierRequest request){
+    public DeleteSupplierResponse delete(@RequestPayload DeleteSupplierRequest request){
         Optional<SupplierModel> supplier = this.supplierRepository.findById(request.getId());
 
         if(!supplier.isPresent())

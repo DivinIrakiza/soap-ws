@@ -43,7 +43,7 @@ public class ItemEndPoint {
         return response;
     }
 
-    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "GetSupplierRequest")
+    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "GetItemRequest")
     @ResponsePayload
     public GetItemResponse getById(@RequestPayload GetItemRequest request){
         Optional<ItemModel> item = this.itemRepository.findById(request.getId());
@@ -62,7 +62,7 @@ public class ItemEndPoint {
     }
 
 
-    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "CreateSupplierRequest")
+    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "CreateItemRequest")
     @ResponsePayload
     public CreateItemResponse create(@RequestPayload CreateItemRequest dto) {
         ItemDTO itemDTO = dto.getItem();
