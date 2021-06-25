@@ -11,6 +11,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import java.util.List;
+import java.util.Optional;
 
 @Endpoint
 public class SupplierEndPoint {
@@ -45,23 +46,21 @@ public class SupplierEndPoint {
     @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "GetSupplierRequest")
     @ResponsePayload
     public GetSupplierResponse getById(@RequestPayload GetSupplierRequest request){
-        Optional<Supplier> _student = studentRepository.findById(request.getId());
+        Optional<SupplierModel> supplier = this.supplierRepository.findById(request.getId());
 
-        if(!_student.isPresent())
-            return new GetStudentDetailsResponse();
-
-        Student student = _student.get();
-
-        GetStudentDetailsResponse response = new GetStudentDetailsResponse();
-
-        https.rca_ac_rw.verie.soap_app.student.Student __student = new https.rca_ac_rw.verie.soap_app.student.Student();
-        __student.setId(student.getId());
-        __student.setFirstName(student.getFirstName());
-        __student.setLastName(student.getLastName());
-        __student.setGender(student.getGender());
+        if(!supplier.isPresent())
+            return new GetSupplierResponse();
 
 
-        response.setStudent(__student);
+        GetSupplierResponse response = new GetSupplierResponse();
+
+        Supplier _supplier = new Supplier();
+        _supplier.setId(supplier.get().getId());
+        _supplier.setEmail(supplier.get().getEmail());
+        _supplier.setNames(supplier.get().getNames());
+        _supplier.setMobile(supplier.get().getMobile());
+
+        response.setSupplier(_supplier);
 
         return response;
     }
