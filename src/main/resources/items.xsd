@@ -118,13 +118,6 @@
     </xs:complexType>
 
 
-    <xs:simpleType name="EStatus">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="NEW"/>
-            <xs:enumeration value="GOOD_SHAPE"/>
-            <xs:enumeration value="OLD"/>
-        </xs:restriction>
-    </xs:simpleType>
 
 
 

@@ -81,31 +81,35 @@ public class SupplierEndPoint {
     public UpdateSupplierResponse update(@RequestPayload UpdateSupplierRequest request){
         SupplierDTO supplierDTO = request.getSupplier();
 
-        Optional<SupplierModel> supplier = this.supplierRepository.findById());
+        Optional<SupplierModel> supplier = this.supplierRepository.findById(request.getId());
 
+        if(!supplier.isPresent())
+            return new UpdateSupplierResponse();
 
-        SupplierModel supplier = new SupplierModel();
-        supplier.setEmail(supplierDTO.getEmail());
-        supplier.setNames(supplierDTO.getNames());
-        supplier.setMobile(supplierDTO.getMobile());
+        supplier.get().setNames(supplierDTO.getNames());
+        supplier.get().setEmail(supplierDTO.getEmail());
+        supplier.get().setMobile(supplierDTO.getMobile());
 
-        Student student = studentRepository.save(_student);
+        SupplierModel entity = this.supplierRepository.save(supplier.get());
+        UpdateSupplierResponse response = new UpdateSupplierResponse();
 
-        UpdateStudentResponse studentDTO = new UpdateStudentResponse();
+        response.setSupplier(mapSupplier(entity));
+        response.setSuccess(true);
 
-        __student.setId(student.getId());
-
-        studentDTO.setStudent(__student);
-
-        return studentDTO;
+        return response;
     }
 
     @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "DeleteStudentRequest")
     @ResponsePayload
-    public DeleteStudentResponse delete(@RequestPayload DeleteStudentRequest request){
-        studentRepository.deleteById(request.getId());
-        DeleteStudentResponse response = new DeleteStudentResponse();
-        response.setMessage("Successfully deleted a message");
+    public DeleteSupplierResponse delete(@RequestPayload DeleteSupplierRequest request){
+        Optional<SupplierModel> supplier = this.supplierRepository.findById(request.getId());
+
+        if(!supplier.isPresent())
+            return new DeleteSupplierResponse();
+
+        this.supplierRepository.deleteById(request.getId());
+        DeleteSupplierResponse response = new DeleteSupplierResponse();
+        response.setSuccess(true);
         return response;
     }
 
@@ -120,4 +124,4 @@ public class SupplierEndPoint {
 
         return supplier;
     }
-}}
+}
