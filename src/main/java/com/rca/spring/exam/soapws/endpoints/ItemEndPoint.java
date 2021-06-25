@@ -111,25 +111,25 @@ public class ItemEndPoint {
 
 
 
-        SupplierModel entity = this.supplierRepository.save(supplier.get());
+        ItemModel entity = this.itemRepository.save(item.get());
         UpdateItemResponse response = new UpdateItemResponse();
 
-        response.setSupplier(mapSupplier(entity));
+        response.setItem(mapItem(entity));
         response.setSuccess(true);
 
         return response;
     }
 
-    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "DeleteStudentRequest")
+    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "DeleteItemRequest")
     @ResponsePayload
-    public DeleteSupplierResponse delete(@RequestPayload DeleteSupplierRequest request){
-        Optional<SupplierModel> supplier = this.supplierRepository.findById(request.getId());
+    public DeleteItemResponse delete(@RequestPayload DeleteItemRequest request){
+        Optional<ItemModel> item = this.itemRepository.findById(request.getId());
 
-        if(!supplier.isPresent())
-            return new DeleteSupplierResponse();
+        if(!item.isPresent())
+            return new DeleteItemResponse();
 
-        this.supplierRepository.deleteById(request.getId());
-        DeleteSupplierResponse response = new DeleteSupplierResponse();
+        this.itemRepository.deleteById(request.getId());
+        DeleteItemResponse response = new DeleteItemResponse();
         response.setSuccess(true);
         return response;
     }
@@ -159,13 +159,5 @@ public class ItemEndPoint {
         return supplier;
     }
 
-    private SupplierModel mapSupplierModel(Supplier supplier) {
-        SupplierModel supplierModel = new SupplierModel();
-        supplierModel.setId(supplier.getId());
-        supplierModel.setEmail(supplier.getEmail());
-        supplierModel.setNames(supplier.getNames());
-        supplierModel.setMobile(supplier.getMobile());
 
-        return supplierModel;
-    }
 }
