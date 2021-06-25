@@ -1,4 +1,4 @@
-package com.rca.studies.spring.soapws;
+package com.rca.spring.exam.soapws;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
