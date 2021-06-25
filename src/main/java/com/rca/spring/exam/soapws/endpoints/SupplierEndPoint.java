@@ -3,9 +3,7 @@ package com.rca.spring.exam.soapws.endpoints;
 
 import com.rca.spring.exam.soapws.domains.SupplierModel;
 import com.rca.spring.exam.soapws.repositories.ISupplierRepository;
-import exam.spring.rca.com.divinirakiza.soapws.GetAllSuppliersRequest;
-import exam.spring.rca.com.divinirakiza.soapws.GetAllSuppliersResponse;
-import exam.spring.rca.com.divinirakiza.soapws.Supplier;
+import exam.spring.rca.com.divinirakiza.soapws.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -23,31 +21,31 @@ public class SupplierEndPoint {
         this.supplierRepository = supplierRepository;
     }
 
-    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "GetAllStudentsRequest")
+    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "GetAllSuppliersRequest")
     @ResponsePayload
     public GetAllSuppliersResponse getAll(@RequestPayload GetAllSuppliersRequest request){
 
-        List<SupplierModel> entities = this.supplierRepository.findAll();
+        List<SupplierModel> suppliers = this.supplierRepository.findAll();
 
         GetAllSuppliersResponse response = new GetAllSuppliersResponse();
 
-        for (SupplierModel supplierModel: entities){
-            Supplier supplier = new Supplier();
-            supplier.setId(supplierModel.getId());
-            supplier.setEmail(supplierModel.getEmail());
-            supplier.setNames(supplierModel.getNames());
-            supplier.setMobile(supplierModel.getMobile());
+        for (SupplierModel supplier: suppliers){
+            Supplier _supplier = new Supplier();
+            _supplier.setId(supplier.getId());
+            _supplier.setEmail(supplier.getEmail());
+            _supplier.setNames(supplier.getNames());
+            _supplier.setMobile(supplier.getMobile());
 
-            response.getSupplier().add(supplier);
+            response.getSupplier().add(_supplier);
         }
 
         return response;
     }
 
-    @PayloadRoot(namespace = "https://rca.ac.rw/verie/soap-app/student", localPart = "GetStudentDetailsRequest")
+    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "GetSupplierRequest")
     @ResponsePayload
-    public GetStudentDetailsResponse findById(@RequestPayload GetStudentDetailsRequest request){
-        Optional<Student> _student = studentRepository.findById(request.getId());
+    public GetSupplierResponse getById(@RequestPayload GetSupplierRequest request){
+        Optional<Supplier> _student = studentRepository.findById(request.getId());
 
         if(!_student.isPresent())
             return new GetStudentDetailsResponse();
@@ -82,7 +80,7 @@ public class SupplierEndPoint {
     }
 
 
-    @PayloadRoot(namespace = "https://rca.ac.rw/verie/soap-app/student", localPart = "DeleteStudentRequest")
+    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "DeleteStudentRequest")
     @ResponsePayload
     public DeleteStudentResponse delete(@RequestPayload DeleteStudentRequest request){
         studentRepository.deleteById(request.getId());
@@ -91,7 +89,7 @@ public class SupplierEndPoint {
         return response;
     }
 
-    @PayloadRoot(namespace = "https://rca.ac.rw/verie/soap-app/student", localPart = "UpdateStudentRequest")
+    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "UpdateStudentRequest")
     @ResponsePayload
     public UpdateStudentResponse update(@RequestPayload UpdateStudentRequest request){
         https.rca_ac_rw.verie.soap_app.student.Student __student = request.getStudent();
