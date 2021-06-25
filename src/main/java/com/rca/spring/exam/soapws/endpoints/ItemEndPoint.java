@@ -81,31 +81,38 @@ public class ItemEndPoint {
         item.setStatus(EItemStatus.valueOf(itemDTO.getStatus().toString()));
 
 
-        ItemModel entity = this.itemRepository.save(supplier);
-        CreateSupplierResponse response = new CreateSupplierResponse();
+        ItemModel entity = this.itemRepository.save(item);
+        CreateItemResponse response = new CreateItemResponse();
 
-        response.setSupplier(mapSupplier(entity));
+        response.setItem(mapItem(entity));
         response.setSuccess(true);
         return response;
     }
 
 
-    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "UpdateSupplierRequest")
+    @PayloadRoot(namespace = "com.rca.spring.exam/divinirakiza/soapws", localPart = "UpdateItemRequest")
     @ResponsePayload
-    public UpdateSupplierResponse update(@RequestPayload UpdateSupplierRequest request){
-        SupplierDTO supplierDTO = request.getSupplier();
+    public UpdateItemResponse update(@RequestPayload UpdateItemRequest request){
+        ItemDTO itemDTO = request.getItem();
 
-        Optional<SupplierModel> supplier = this.supplierRepository.findById(request.getId());
+        Optional<ItemModel> item = this.itemRepository.findById(request.getId());
 
-        if(!supplier.isPresent())
-            return new UpdateSupplierResponse();
+        Optional<SupplierModel> supplier = this.supplierRepository.findById(itemDTO.getSupplier());
 
-        supplier.get().setNames(supplierDTO.getNames());
-        supplier.get().setEmail(supplierDTO.getEmail());
-        supplier.get().setMobile(supplierDTO.getMobile());
+        if(!item.isPresent() || !supplier.isPresent())
+            return new UpdateItemResponse();
+
+
+        item.get().setName(itemDTO.getName());
+        item.get().setItemCode(itemDTO.getItemCode());
+        item.get().setSupplier(supplier.get());
+        item.get().setPrice(itemDTO.getPrice());
+        item.get().setStatus(EItemStatus.valueOf(itemDTO.getStatus().toString()));
+
+
 
         SupplierModel entity = this.supplierRepository.save(supplier.get());
-        UpdateSupplierResponse response = new UpdateSupplierResponse();
+        UpdateItemResponse response = new UpdateItemResponse();
 
         response.setSupplier(mapSupplier(entity));
         response.setSuccess(true);
